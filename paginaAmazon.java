@@ -10,8 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 
 public class testeDoSiteAmazon {
-	private static final String URL_AMAZON = "http://www.amazon.com.br";
-	private WebDriver browser;
+	private produtoPage paginaDeProdutos;
 
 
 	@BeforeAll
@@ -21,20 +20,19 @@ public class testeDoSiteAmazon {
 
 	@BeforeEach
 	public void beforeEach() {
-	this.browser = new ChromeDriver();
+	this.produtoPage = new produtoPage();
 	}
 	@AfterEach
 	public void afterEach() {
-		this.browser.quit();
+		this.pagina.fechar();
 	}
 }
 
 	@Test
 	public void navegarAteprodutos() {
-		browser.navigate().to(URL_AMAZON);
+		paginaDeProduto.buscarProduto("Playstation 5");
+		paginaDeProduto.clicarEmBuscar();
 
-		browser.findElement(By.id("twotabsearchtextbox")).sendKeys("Playstation 5");
-		browser.findElement(By.id("nav-search-submit-button")).click();
 
 		String buscaProduto = browser.findElement(By.xpath("//span[@class='a-size-base-plus a-color-base a-text-normal'][contains(.,'Console PlayStation 5')]")).getText();
 		Assert.assertEquals("Playstation 5", buscaProduto);
